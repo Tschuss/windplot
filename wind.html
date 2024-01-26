@@ -1,0 +1,89 @@
+<head>
+	<!-- Load plotly.js into the DOM -->
+	<script src='https://cdn.plot.ly/plotly-2.27.0.min.js'></script>
+</head>
+
+<body>
+	<div id='myDiv' width='500px'><!-- Plotly chart will be drawn inside this DIV --></div>
+	
+	<script languaje="javascript">
+	
+var MAXX=7;
+var MAXY=5;
+var size=1000;
+var ang=Math.round(Math.random()*360);
+var randomColor = Math.floor(Math.random()*16777215).toString(16);
+var delta = 0.3;
+	
+var data=[];
+var count =0;
+
+for (var y = 0; y<MAXY; y=y+delta) {
+	for (var x = 0; x<MAXX; x=x+delta) {
+	
+		randomColor = Math.floor(Math.random()*16777215).toString(16);
+		ang=(ang*3.1)%360;
+		
+		console.log('(',x,',',y,')=',ang);
+		
+		data[count++]= { 
+			x: [x], 
+			y: [y], 
+			mode: 'markers', 
+			type: 'scatter', 
+			marker: {
+				angle: ang, 
+				line: {
+					width:2,
+					color:randomColor
+					}, 
+				symbol: 'line-ns', 
+				size: 12
+			} 
+		};
+	}
+}
+/*
+for (var y = 0; y<MAXY;y=y+delta) {
+	for (var x = 0; x<size; x++) {
+		var posx=x*MAXX/size;
+		var posy=y;
+		if (ang%2==0) {
+			ang=ang-21;
+		}else{
+			ang=ang*3;
+		}
+		var randomColor = Math.floor(Math.random()*16777215).toString(16);
+		data[x]= { 
+			x: [posx], 
+			y: [posy], 
+			mode: 'markers', 
+			type: 'scatter', 
+			marker: {
+				angle: ang, 
+				line: {
+					width:1,
+					color:randomColor
+					}, 
+				symbol: 'line-ns', 
+				size: 12
+			} 
+		};
+	}
+}
+*/
+
+var layout = {
+  xaxis: {
+    range: [ 0, MAXX ]
+  },
+  yaxis: {
+    range: [0, MAXY]
+  },
+  title:'Velocidad del viento'
+};
+
+Plotly.newPlot('myDiv', data, layout);
+
+	</script>
+</body>
